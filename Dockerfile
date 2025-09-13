@@ -8,11 +8,12 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
-# Copy app source code
+# Copy app source code and explicitly the image file
 COPY . .
+COPY logoswayatt.png . 
 
-# Expose port (assuming your app listens on 3000)
-EXPOSE 3000
+# Expose port
+EXPOSE 8080
 
 # Start the app
 CMD ["npm", "start"]
