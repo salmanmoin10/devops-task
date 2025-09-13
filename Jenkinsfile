@@ -1,13 +1,13 @@
 pipeline {
     agent any
     environment {
-        DOCKER_IMAGE = 'moinsalman/devops-task:latest'   // DockerHub repo
-        DOCKERHUB_CREDENTIALS = 'dockerhub-creds'                  // Jenkins credentials ID for DockerHub
-        GCLOUD_CREDENTIALS = 'gcp-service-account'                 // Jenkins credentials ID for GCP service account (JSON key)
-        GCP_PROJECT = 'your-gcp-project-id'
-        REGION = 'us-central1'
-        SERVICE_NAME = 'your-cloud-run-service'
-        PATH = "/opt/google-cloud-sdk/bin:$PATH"
+        DOCKER_IMAGE = 'moinsalman/devops-task:latest'  // DockerHub repo
+        DOCKERHUB_CREDENTIALS = 'dockerhub-creds'      // Jenkins credentials ID for DockerHub
+        GCLOUD_CREDENTIALS = 'gcp-service-account'     // Jenkins credentials ID for GCP service account (JSON key)
+        GCP_PROJECT = 'arctic-diode-449306-n0'           // Replace with your real GCP project ID
+        REGION = 'us-central1'                         // Replace if using a different region
+        SERVICE_NAME = 'devops-task-cloudrun'          // Replace with your actual Cloud Run service name
+        PATH = "/opt/google-cloud-sdk/bin:$PATH"       // Global PATH for gcloud
     }
     stages {
         stage('Clean Workspace') {
