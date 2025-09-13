@@ -40,14 +40,15 @@ pipeline {
             }
         }
         stage('Deploy to Cloud Run') {
-            steps {
-                withCredentials([file(credentialsId: "${GCLOUD_CREDENTIALS}", variable: 'GCLOUD_KEY')]) {
-                    sh 'gcloud auth activate-service-account --key-file=$GCLOUD_KEY'
-                    sh "gcloud config set project ${GCP_PROJECT}"
-                    sh "gcloud run deploy ${SERVICE_NAME} --image=${DOCKER_IMAGE} --region=${REGION} --platform=managed --allow-unauthenticated"
-                }
-            }
+    steps {
+        withCredentials([file(credentialsId: "${GCLOUD_CREDENTIALS}", variable: 'GCLOUD_KEY')]) {
+            sh 'source ~/.bash_profile && gcloud auth activate-service-account --key-file=$GCLOUD_KEY'
+            sh 'source ~/.bash_profile && gcloud config set project ${GCP_PROJECT}'
+            sh 'source ~/.bash_profile && gcloud run deploy ${SERVICE_NAME} --image=${DOCKER_IMAGE} --region=${REGION} --platform=managed --allow-unauthenticated'
         }
+    }
+}
+
     }
     post {
         always {
