@@ -7,6 +7,7 @@ pipeline {
         GCP_PROJECT = 'your-gcp-project-id'
         REGION = 'us-central1'
         SERVICE_NAME = 'your-cloud-run-service'
+        PATH = "/home/ec2-user/google-cloud-sdk/bin:$PATH"
     }
     stages {
         stage('Clean Workspace') {
