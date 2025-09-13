@@ -10,7 +10,7 @@ RUN npm install
 
 # Copy app source code and explicitly the image file
 COPY . .
-COPY logoswayatt.png .  # Explicit copy to ensure it is included
+COPY logoswayatt.png . 
 
 # Expose port
 EXPOSE 8080
