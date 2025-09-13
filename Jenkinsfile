@@ -1,12 +1,13 @@
 pipeline {
     agent any
     environment {
-        DOCKER_IMAGE = 'moinsalman/devops-task:latest'   // DockerHub repo
-        DOCKERHUB_CREDENTIALS = 'dockerhub-creds'                  // Jenkins credentials ID for DockerHub
-        GCLOUD_CREDENTIALS = 'gcp-service-account'                 // Jenkins credentials ID for GCP service account (JSON key)
-        GCP_PROJECT = 'your-gcp-project-id'
-        REGION = 'us-central1'
-        SERVICE_NAME = 'your-cloud-run-service'
+        DOCKER_IMAGE = 'moinsalman/devops-task:latest'  // DockerHub repo
+        DOCKERHUB_CREDENTIALS = 'dockerhub-creds'      // Jenkins credentials ID for DockerHub
+        GCLOUD_CREDENTIALS = 'gcp-service-account'     // Jenkins credentials ID for GCP service account (JSON key)
+        GCP_PROJECT = 'arctic-diode-449306-n0'           // Replace with your real GCP project ID
+        REGION = 'us-central1'                         // Replace if using a different region
+        SERVICE_NAME = 'cloud-run-deployer'          // Replace with your actual Cloud Run service name
+        PATH = "/opt/google-cloud-sdk/bin:$PATH"       // Global PATH for gcloud
     }
     stages {
         stage('Clean Workspace') {
@@ -42,12 +43,13 @@ pipeline {
         stage('Deploy to Cloud Run') {
     steps {
         withCredentials([file(credentialsId: "${GCLOUD_CREDENTIALS}", variable: 'GCLOUD_KEY')]) {
-            sh 'source ~/.bash_profile && gcloud auth activate-service-account --key-file=$GCLOUD_KEY'
-            sh 'source ~/.bash_profile && gcloud config set project ${GCP_PROJECT}'
-            sh 'source ~/.bash_profile && gcloud run deploy ${SERVICE_NAME} --image=${DOCKER_IMAGE} --region=${REGION} --platform=managed --allow-unauthenticated'
+            sh 'export PATH=$PATH:$HOME/google-cloud-sdk/bin && gcloud auth activate-service-account --key-file=$GCLOUD_KEY'
+            sh 'export PATH=$PATH:$HOME/google-cloud-sdk/bin && gcloud config set project ${GCP_PROJECT}'
+            sh 'export PATH=$PATH:$HOME/google-cloud-sdk/bin && gcloud run deploy ${SERVICE_NAME} --image=${DOCKER_IMAGE} --region=${REGION} --platform=managed --allow-unauthenticated'
         }
     }
 }
+
 
     }
     post {
