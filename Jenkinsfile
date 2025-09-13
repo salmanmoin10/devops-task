@@ -9,6 +9,11 @@ pipeline {
         SERVICE_NAME = 'your-cloud-run-service'
     }
     stages {
+        stage('Clean Workspace') {
+            steps {
+                deleteDir()
+            }
+        }
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/salmanmoin10/devops-task.git'
