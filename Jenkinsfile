@@ -6,7 +6,7 @@ pipeline {
         GCLOUD_CREDENTIALS = 'gcp-service-account'     // Jenkins credentials ID for GCP service account (JSON key)
         GCP_PROJECT = 'arctic-diode-449306-n0'           // Replace with your real GCP project ID
         REGION = 'us-central1'                         // Replace if using a different region
-        SERVICE_NAME = 'devops-task-cloudrun'          // Replace with your actual Cloud Run service name
+        SERVICE_NAME = 'cloud-run-deployer'          // Replace with your actual Cloud Run service name
         PATH = "/opt/google-cloud-sdk/bin:$PATH"       // Global PATH for gcloud
     }
     stages {
