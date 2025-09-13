@@ -42,12 +42,13 @@ pipeline {
         stage('Deploy to Cloud Run') {
     steps {
         withCredentials([file(credentialsId: "${GCLOUD_CREDENTIALS}", variable: 'GCLOUD_KEY')]) {
-            sh 'source ~/.bash_profile && gcloud auth activate-service-account --key-file=$GCLOUD_KEY'
-            sh 'source ~/.bash_profile && gcloud config set project ${GCP_PROJECT}'
-            sh 'source ~/.bash_profile && gcloud run deploy ${SERVICE_NAME} --image=${DOCKER_IMAGE} --region=${REGION} --platform=managed --allow-unauthenticated'
+            sh 'export PATH=$PATH:$HOME/google-cloud-sdk/bin && gcloud auth activate-service-account --key-file=$GCLOUD_KEY'
+            sh 'export PATH=$PATH:$HOME/google-cloud-sdk/bin && gcloud config set project ${GCP_PROJECT}'
+            sh 'export PATH=$PATH:$HOME/google-cloud-sdk/bin && gcloud run deploy ${SERVICE_NAME} --image=${DOCKER_IMAGE} --region=${REGION} --platform=managed --allow-unauthenticated'
         }
     }
 }
+
 
     }
     post {
