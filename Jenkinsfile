@@ -16,7 +16,7 @@ pipeline {
         }
         stage('Test & Build') {
             steps {
-                cat package.json
+                sh 'cat package.json'
                 sh 'npm install'
                 sh 'npm test'
             }
