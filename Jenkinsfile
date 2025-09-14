@@ -17,12 +17,11 @@ pipeline {
         }
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/salmanmoin10/devops-task.git'
+                git branch: 'dev', url: 'https://github.com/salmanmoin10/devops-task.git'
             }
         }
         stage('Test & Build') {
             steps {
-                sh 'cat package.json'
                 sh 'npm install'
                 sh 'npm test'
             }
